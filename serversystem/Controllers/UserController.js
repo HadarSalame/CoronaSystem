@@ -42,6 +42,19 @@ const getUser = async function (req, res, next) {
     }
 }
 
+//get user by id
+const getUserByID = async function (req, res, next) {
+    try {
+        const id = req.params.ID;
+        const user = await UserModel.findOne({ ID: id });
+        console.log(user);
+        res.send(user);
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
 //update
 
 //update name
@@ -105,10 +118,10 @@ const UpdatePhone = (req, res) => {
 }
 
 //update hand phone
-const UpdateHandPhone = (req, res) => {
-    let hp = req.params.handPhone
-    let newHp = req.body.handPhone
-    UserModel.findOneAndUpdate({ handPhone: hp }, { handPhone: newhp }).then((response) => {
+const UpdatemobilePhone = (req, res) => {
+    let hp = req.params.mobilePhone
+    let newHp = req.body.mobilePhone
+    UserModel.findOneAndUpdate({ mobilePhone: hp }, { mobilePhone: newhp }).then((response) => {
         res.send(`hello!! ${response} updated successfully`)
 
     }).catch((error) => {
@@ -155,4 +168,4 @@ const UpdatevaccinationType = (req, res) => {
 
 // להוסיף שינוי של מערך תאריכים
 
-module.exports={CreateUser,DeleteUser,getUser,UpdateName,UpdateID,UpdateAddress,UpdateBirthDate,UpdatePhone,UpdateHandPhone,UpdatePositiveDate,UpdateRecoveryDate,UpdatevaccinationType}
+module.exports={CreateUser,DeleteUser,getUser,UpdateName,UpdateID,UpdateAddress,UpdateBirthDate,UpdatePhone,UpdatemobilePhone,UpdatePositiveDate,UpdateRecoveryDate,UpdatevaccinationType,getUserByID}

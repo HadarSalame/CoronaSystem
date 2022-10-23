@@ -8,9 +8,10 @@ import { Provider } from 'react-redux'
 import store from './Redux/Store/store'
 
 //components
-import index from './components/Index/indexComponent'
-import Details from './components/Details/detailsComponent'
-import Update from './components/Update/updateComponent'
+import Index from './components/Index/indexComponent'
+import Details from './components/User/Details/detailsComponent'
+import Update from './components/User/Update/updateComponent'
+import Add from './components/User/Add/AddComponent'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,7 +23,8 @@ root.render(
         <Route path='/' element={<App />} ></Route>
           <Route path='/Details' element={<Details />}></Route>
           <Route path='/Update' element={<Update />}></Route>
-
+          <Route path='/Add' element={<Add />}></Route>
+          <Route path='/index' element={<Index />}></Route>
         </Routes>
       </BrowserRouter>
     </Provider>

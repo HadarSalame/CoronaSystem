@@ -1,0 +1,17 @@
+.form {
+    direction: rtl;
+    margin-left: 32%;
+    margin-right: 5%;
+    width: 35%;
+    margin-top:5%
+
+
+}
+
+.page {
+    margin: 2%;
+}
+
+.form.form-control {
+    width: 60%
+}

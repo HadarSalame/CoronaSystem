@@ -7,7 +7,7 @@ const UserSchema=mongoose.Schema({
     address:{type:String,require},
     birthDate:{type:Date,require},
     Phone:{type:String,require},
-    handPhone:{type:String,require},
+    mobilePhone:{type:String,require},
     getPositiveDate:{type:Date,require},
     recovery:{type:Date,require},
     vaccinationType:{type:String,require},
