@@ -33,6 +33,7 @@ const DeleteUser = async (req, res) => {
 
 //all the Users
 const getUser = async function (req, res, next) {
+    console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;")
     try {
         const Users = await UserModel.find();
         res.send(Users);
@@ -166,6 +167,5 @@ const UpdatevaccinationType = (req, res) => {
     })
 }
 
-// להוסיף שינוי של מערך תאריכים
 
 module.exports={CreateUser,DeleteUser,getUser,UpdateName,UpdateID,UpdateAddress,UpdateBirthDate,UpdatePhone,UpdatemobilePhone,UpdatePositiveDate,UpdateRecoveryDate,UpdatevaccinationType,getUserByID}

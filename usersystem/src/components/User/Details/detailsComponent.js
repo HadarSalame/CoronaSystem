@@ -1,41 +1,54 @@
 import React, { useEffect } from "react";
-import { useState,useNavigate } from 'react';
+import { useState, useNavigate } from 'react';
 import { Modal, Button, Form, FloatingLabel } from "react-bootstrap";
 import Update from "../Update/updateComponent";
 import axios from "axios";
+import { connect } from 'react-redux';
 
-export default function Details(props) {
+
+function mapStateToProps(state) {
+
+    return {
+        usr: state.User.U
+
+    }
+}
+
+export default connect(mapStateToProps)(function Details(props) {
+
+    const { usr, dispatch } = props;
 
     const { show, setShow } = props
 
     const handleModalClose = () => { setShow(false); };
     const handleModalShow = () => setShow(true);
 
-    //update
+    // //update
     let navigate = useNavigate();
     function updateFunc(){
-        handleModalClose
+        // handleModalClose
         navigate('/Update')
     }
-//delete
-function deleteUser(){
-    axios.delete(`http://localhost:3030/User/DeleteUser/${Props.ID}`).then((res)=>{
-        if(res.data){
-            alert('הלקוח נמחק בהצלחה')
-            handleModalClose
-        }
-    })
-}
-    const [details, setdetails] = useState()
-    useEffect(() => {
-        axios.get(`http://localhost:3030/User/getUserByID/${Props.ID}`).then((res) => {
-            if (res.data) {
-                console.log(res.data)
-                setOrder(res.data)
 
+   // delete
+    function deleteUser() {
+        axios.delete(`http://localhost:3030/User/DeleteUser/${usr.ID}`).then((res) => {
+            if (res.data) {
+                alert('הלקוח נמחק בהצלחה')
+                // handleModalClose
             }
         })
-    }, [])
+    }
+        const [details, setdetails] = useState()
+        useEffect(() => {
+            axios.get(`http://localhost:3030/User/getUserByID/${usr.ID}`).then((res) => {
+                if (res.data) {
+                    console.log(res.data)
+                    setdetails(res.data)
+
+                }
+            })
+        }, [])
     return (
         <>
             <div>
@@ -45,20 +58,15 @@ function deleteUser(){
                     </Modal.Header>
                     <Modal.Body style={{
                         direction: 'rtl',
-                        display:'flex',
+                        display: 'flex',
                         justifyContent: 'space-around'
                     }}>
-                        <div>image</div>
-                        <div>
-                            שם:{details.name}
+                        שם:{details.name}
                             ת''ז:{details.ID}
                             כתובת:{details.address}
                             תאריך לידה:{details.birthDate}
                             טלפון:{details.Phone}
                             טלפון נייד:{details.mobilePhone}
-
-                        </div>
-
                     </Modal.Body>
 
                     <Modal.Footer style={{ marginLeft: '5%', display: 'flex', flexWrap: 'nowrap' }}>
@@ -75,3 +83,4 @@ function deleteUser(){
         </>
     )
 }
+)

@@ -11,7 +11,13 @@ const UserSchema=mongoose.Schema({
     getPositiveDate:{type:Date,require},
     recovery:{type:Date,require},
     vaccinationType:{type:String,require},
-    vaccinationDates:[{type:Date,require}]
+    vaccinationDateOne:{type:Date,require},
+    vaccinationDateTwo:{type:Date,require},
+    vaccinationDateThree:{type:Date,require},
+    vaccinationDateFour:{type:Date,require}
+
+
+
 
 })
 

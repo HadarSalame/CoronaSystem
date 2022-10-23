@@ -8,9 +8,13 @@ import { Modal, Button, Form, FloatingLabel } from "react-bootstrap";
 import Details from '../User/Details/detailsComponent';
 import Add from '../User/Add/AddComponent'
 import update from '../User/Update/updateComponent';
+import { connect } from 'react-redux';
+import {importUserID} from '../../Redux/actions'
 
 
-function App() {
+export default connect()(function Index(props) {
+
+    const {dispatch } = props
 
 
     let navigate = useNavigate();
@@ -21,7 +25,6 @@ function App() {
 
     const [isModalShow, setIsModalShow] = React.useState();
     function OpenModal() {
-        // setIdCurrent(id)
         setIsModalShow(true)
         console.log("1234");
 
@@ -32,13 +35,16 @@ function App() {
 
     }
 
-    const [user, setuser] = useState()
+    const [IdCurrent, setIdCurrent] =useState();
+    
+    const [AllUser, setAllUser] = useState()
 
 
     useEffect(() => {
         axios.get("http://localhost:3030/User/getUser").then((res) => {
             if (res.data && res.data.length) {
-                setuser(res.data)
+                setAllUser(res.data)
+
             }
         })
 
@@ -46,11 +52,14 @@ function App() {
     }, [])
 
 
+
     return (
-        <div className='tableplace'>
-            <h1>ברוכים הבאים</h1>
+        <div className='tableplace page'>
+            <h1 style={{margin:"2%"}}>ברוכים הבאים</h1>
             <div>
-                <Button onClick={AddUser}>הוספת לקוח</Button>
+                <Button  style={{margin:"2%"}}onClick={AddUser}>הוספת לקוח</Button>
+
+
             </div>
             <div>
                 <table className="table table-sm">
@@ -65,23 +74,24 @@ function App() {
                     </thead>
                     {/* open in map */}
                     <tbody onClick={OpenModal}>
-                        <tr>
-                            <td>13/06/2020<br></br>
-                                12/12/2020</td>
-                            <td>פייזר</td>
-                            <td>06/12/2020</td>
-                            <td>13/06/2020</td>
-                            <td>נועה </td>
-                        </tr>
+                        {AllUser && AllUser.length && AllUser.map((item,i)=>
+                        <tr key={i}>
+                            <td> {item.vaccinationDates}</td>
+                            <td>{item.vaccinationType}</td>
+                            <td>{item.recovery}</td>
+                            <td>{item.getPositiveDate}</td>
+                            <td>{item.name} </td>
+                            
+                        </tr>)}
                     </tbody>
                 </table>
             </div>
-            {isModalShow && <Details show={isModalShow} setShow={closeModal} />}
+            {isModalShow && <Details show={isModalShow} setShow={closeModal} ID={IdCurrent}/>}
         </div>
     );
 
 
 }
+)
 
 
-export default App;

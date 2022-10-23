@@ -9,21 +9,25 @@ import index from '../../Index/indexComponent'
 
 export default function Add() {
 
-refName=useRef();
-refID=useRef();
-refAddress=useRef();
-refBirthDate=useRef();
-refPhone=useRef();
-refmobilePhone=useRef();
-refGetPositiveDate=useRef();
-refRecovery=useRef();
-refVaccinationType=useRef();
-const [selectedDate, setSelectedDate] = useState()
+    let refName = useRef();
+    let refID = useRef();
+    let refAddress = useRef();
+    let refBirthDate = useRef();
+    let refPhone = useRef();
+    let refmobilePhone = useRef();
+    let refGetPositiveDate = useRef();
+    let refRecovery = useRef();
+    let refVaccinationType = useRef();
+    let refvaccinationDateOne = useRef();
+    let refvaccinationDateTwo = useRef();
+    let refvaccinationDateThree = useRef();
+    let refvaccinationDateFour = useRef();
+
 
 
     let navigate = useNavigate();
     // add user
-     function goindex() {
+    function goindex() {
         let newUser = {
             name: refName.current.value,
             ID: refID.current.value,
@@ -34,16 +38,20 @@ const [selectedDate, setSelectedDate] = useState()
             getPositiveDate: refGetPositiveDate.current.value,
             recovery: refRecovery.current.value,
             vaccinationType: refVaccinationType.current.value,
-            vaccinationDates: selectedDate
+            vaccinationDateOne:refvaccinationDateOne.current.value,
+            vaccinationDateTwo:refvaccinationDateTwo.current.value,
+            vaccinationDateThree:refvaccinationDateThree.current.value,
+            vaccinationDateFour:refvaccinationDateFour.current.value,
+
 
         }
-        axios.post('http://localhost:3030/User/CreateBusiness', newUser).then(res => {
+        axios.post('http://localhost:3030/User/CreateUser', newUser).then(res => {
             alert(res.data)
             console.log(res.data)
             navigate("/Index")
         }).catch(err => console.log(err))
 
-     }
+    }
 
 
     return (
@@ -54,7 +62,7 @@ const [selectedDate, setSelectedDate] = useState()
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicname">
                             <Form.Label>שם מלא</Form.Label>
-                            <Form.Control type="text" ref={refName}/>
+                            <Form.Control type="text" ref={refName} />
                         </Form.Group>
                     </Form>
                     <Form>
@@ -66,25 +74,25 @@ const [selectedDate, setSelectedDate] = useState()
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicAddress">
                             <Form.Label>כתובת</Form.Label>
-                            <Form.Control type="text" ref={refAddress}/>
+                            <Form.Control type="text" ref={refAddress} />
                         </Form.Group>
                     </Form>
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicBirth">
                             <Form.Label>תאריך לידה</Form.Label>
-                            <Form.Control type="text" ref={refBirthDate} />
+                            <Form.Control type="date" ref={refBirthDate} />
                         </Form.Group>
                     </Form>
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicPhone">
                             <Form.Label>טלפון</Form.Label>
-                            <Form.Control type="text"ref={refPhone}/>
+                            <Form.Control type="text" ref={refPhone} />
                         </Form.Group>
                     </Form>
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicmobilePhone">
                             <Form.Label>טלפון נייד</Form.Label>
-                            <Form.Control type="text" ref={refmobilePhone}/>
+                            <Form.Control type="text" ref={refmobilePhone} />
                         </Form.Group>
                     </Form>
                     <Form>
@@ -96,26 +104,24 @@ const [selectedDate, setSelectedDate] = useState()
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicfinallDate">
                             <Form.Label>תאריך סיום</Form.Label>
-                            <Form.Control type="Date" ref={refRecovery}/>
+                            <Form.Control type="Date" ref={refRecovery} />
                         </Form.Group>
                     </Form>
                     <Form>
-                    <Form.Label>סוג חיסון</Form.Label>
+                        <Form.Label>סוג חיסון</Form.Label>
                         <Form.Select aria-label="סוג חיסון" ref={refVaccinationType}>
-                            <option value="1">פייזר</option>
-                            <option value="2">מודרנה</option>
-                       
+                            <option value="פייזר">פייזר</option>
+                            <option value="מודרנה">מודרנה</option>
+
                         </Form.Select>
                     </Form>
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicid">
                             <Form.Label>תאריכי חיסונים</Form.Label>
-                            <Form.Control type="Date" ref={selectedDate} />
-                            <Form.Control type="Date" ref={selectedDate} />
-                            <Form.Control type="Date" ref={selectedDate}  />
-                            <Form.Control type="Date" ref={selectedDate}  />
-                           
-                            
+                            <Form.Control type="Date" ref={refvaccinationDateOne} />
+                            <Form.Control type="Date" ref={refvaccinationDateTwo} />
+                            <Form.Control type="Date" ref={refvaccinationDateThree} />
+                            <Form.Control type="Date" ref={refvaccinationDateFour} />
                         </Form.Group>
                     </Form>
                     <Button onClick={goindex}>הוסף</Button>
