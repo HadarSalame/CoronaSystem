@@ -11,7 +11,8 @@ import store from './Redux/Store/store'
 import Index from './components/Index/indexComponent'
 import Details from './components/User/Details/detailsComponent'
 import Update from './components/User/Update/updateComponent'
-import Add from './components/User/Add/AddComponent'
+import AddUser from './components/User/Add/AddUserComponent'
+import AddVac from './components/User/Add/AddVac.js/AddVacCommpnent';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,7 +24,8 @@ root.render(
         <Route path='/' element={<App />} ></Route>
           <Route path='/Details' element={<Details />}></Route>
           <Route path='/Update' element={<Update />}></Route>
-          <Route path='/Add' element={<Add />}></Route>
+          <Route path='/AddUser' element={<AddUser />}></Route>
+          <Route path='/AddVac' element={<AddVac />}></Route>
           <Route path='/index' element={<Index />}></Route>
         </Routes>
       </BrowserRouter>

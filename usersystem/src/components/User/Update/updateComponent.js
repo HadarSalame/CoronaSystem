@@ -1,7 +1,7 @@
 import React from "react";
 import { Form ,Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "../Add/AddCSS.css"
+import "../Add/AddUserCSS.css"
 import index from '../../Index/indexComponent'
 import axios from "axios";
 import { useRef } from "react";

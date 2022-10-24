@@ -25,6 +25,9 @@ App.use(function(req, res, next) {
 const UserRoute = require("./Routers/UserRoute")
 App.use('/User', UserRoute)
 
+const VaccinationRoute = require("./Routers/VaccinationRoute")
+App.use('/Vaccination', VaccinationRoute)
+
 App.listen(3030, () => {
     console.log('listening on 3030')
 }

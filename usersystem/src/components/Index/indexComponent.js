@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Modal, Button, Form, FloatingLabel } from "react-bootstrap";
 import Details from '../User/Details/detailsComponent';
-import Add from '../User/Add/AddComponent'
+import AddUser from '../User/Add/AddUserComponent'
 import update from '../User/Update/updateComponent';
 import { connect } from 'react-redux';
 import {importUserID} from '../../Redux/actions'
@@ -20,10 +20,10 @@ export default connect()(function Index(props) {
     let navigate = useNavigate();
     // add user
     function AddUser() {
-        navigate('/Add')
+        navigate('/AddUser')
     }
 
-    const [isModalShow, setIsModalShow] = React.useState();
+    const [isModalShow, setIsModalShow] =useState();
     function OpenModal() {
         setIsModalShow(true)
         console.log("1234");
@@ -35,7 +35,7 @@ export default connect()(function Index(props) {
 
     }
 
-    const [IdCurrent, setIdCurrent] =useState();
+    // const [IdCurrent, setIdCurrent] =useState();
     
     const [AllUser, setAllUser] = useState()
 
@@ -55,7 +55,7 @@ export default connect()(function Index(props) {
 
     return (
         <div className='tableplace page'>
-            <h1 style={{margin:"2%"}}>ברוכים הבאים</h1>
+            <h1 style={{margin:"2%"}}>מערכת ניהול קורונה לקופת חולים</h1>
             <div>
                 <Button  style={{margin:"2%"}}onClick={AddUser}>הוספת לקוח</Button>
 
@@ -66,7 +66,7 @@ export default connect()(function Index(props) {
                     <thead>
                         <tr>
                             <th scope="col">תאריכי חיסונים</th>
-                            <th scope="col">סוג בחיסון</th>
+                            <th scope="col">סוג החיסון</th>
                             <th scope="col">תאריך סיום</th>
                             <th scope="col">תוצאה חיובית</th>
                             <th scope="col">שם</th>
@@ -76,7 +76,7 @@ export default connect()(function Index(props) {
                     <tbody onClick={OpenModal}>
                         {AllUser && AllUser.length && AllUser.map((item,i)=>
                         <tr key={i}>
-                            <td> {item.vaccinationDates}</td>
+                            {/* <td> {item.vaccination.vaccinationDate}</td> */}
                             <td>{item.vaccinationType}</td>
                             <td>{item.recovery}</td>
                             <td>{item.getPositiveDate}</td>
@@ -86,7 +86,7 @@ export default connect()(function Index(props) {
                     </tbody>
                 </table>
             </div>
-            {isModalShow && <Details show={isModalShow} setShow={closeModal} ID={IdCurrent}/>}
+            {isModalShow && <Details show={isModalShow} setShow={closeModal}/>}
         </div>
     );
 

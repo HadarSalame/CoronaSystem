@@ -17,6 +17,13 @@ const reducer = produce((state, action) => {
             }
 
             break;
+            case 'ADD_USER':
+                {
+                    state.U = action.payLoad
+                    // console.log(state.U, "state adduserIdtoredux");
+                }
+    
+                break;
 
     }
 }, initialState)

@@ -1,14 +1,26 @@
 const UserModel=require('../Models/UserModel');
+const VaccinationModel = require('../Models/VaccinationModel');
 
+// VaccinationController.AddVac
 //Add User
 const CreateUser = async (req, res) => {
-    let User = req.body
-    console.log(User)
-    try {
+    let user = req.body
+    console.log(user);
 
-        let CreateUser = await new UserModel(User)
-        await CreateUser.save()
-        res.json({message:"Added successfully",CreateUser})
+    
+    try {
+      
+        let newUser = await new UserModel(user)
+        console.log(newUser +"newuser");
+        await newUser.save()
+        const idVac= newUser.vaccination;
+        const userVac = await VaccinationModel.findOne({ _id: idVac });
+        userVac.user.push(newUser)
+        const updated = await VaccinationModel.findByIdAndUpdate(idVac, userVac, { new: true });
+        res.send(updated)
+
+
+        res.json({message:"Added successfully",user})
     }
     catch (e) {
         res.send(e)
@@ -22,7 +34,7 @@ const CreateUser = async (req, res) => {
 const DeleteUser = async (req, res) => {
 
     try {
-        const id = req.params.ID;
+        const id = req.params._id;
         const User = await UserModel.findOneAndDelete(id);
         res.send(User);
     }
@@ -33,9 +45,11 @@ const DeleteUser = async (req, res) => {
 
 //all the Users
 const getUser = async function (req, res, next) {
-    console.log(";;;;;;;;;;;;;;;;;;;;;;;;;;")
+    
     try {
-        const Users = await UserModel.find();
+        const Users = await UserModel.find().populate({
+            path : 'vaccination'
+          });
         res.send(Users);
     }
     catch (error) {
@@ -46,8 +60,8 @@ const getUser = async function (req, res, next) {
 //get user by id
 const getUserByID = async function (req, res, next) {
     try {
-        const id = req.params.ID;
-        const user = await UserModel.findOne({ ID: id });
+        const id = req.params.userId;
+        const user = await UserModel.findOne({ userId: id });
         console.log(user);
         res.send(user);
     }
@@ -58,71 +72,11 @@ const getUserByID = async function (req, res, next) {
 
 //update
 
-//update name
-const UpdateName = (req, res) => {
-    let name = req.params.name
-    let newName = req.body.name
-    UserModel.findOneAndUpdate({ name: name }, { name: newName }).then((response) => {
-        res.send(`hello!! ${response} updated successfully`)
-
-    }).catch((error) => {
-        res.send('error :' + error)
-    })
-}
-
-//update name
-const UpdateID = (req, res) => {
-    let id = req.params.ID
-    let newid = req.body.ID
-    UserModel.findOneAndUpdate({ ID: id }, { ID: newid }).then((response) => {
-        res.send(`hello!! ${response} updated successfully`)
-
-    }).catch((error) => {
-        res.send('error :' + error)
-    })
-}
-
-//update Address
-const UpdateAddress = (req, res) => {
-    let address = req.params.address
-    let newaddress = req.body.address
-    UserModel.findOneAndUpdate({ address: address }, { address: newaddress }).then((response) => {
-        res.send(`hello!! ${response} updated successfully`)
-
-    }).catch((error) => {
-        res.send('error :' + error)
-    })
-}
-
-//update birth date
-const UpdateBirthDate = (req, res) => {
-    let bd = req.params.birthDate
-    let newbd = req.body.birthDate
-    UserModel.findOneAndUpdate({ birthDate: bd }, { birthDate: newbd }).then((response) => {
-        res.send(`hello!! ${response} updated successfully`)
-
-    }).catch((error) => {
-        res.send('error :' + error)
-    })
-}
-
-//update phone
-const UpdatePhone = (req, res) => {
-    let phone = req.params.Phone
-    let newphone = req.body.Phone
-    UserModel.findOneAndUpdate({ Phone: bd }, { Phone: newbd }).then((response) => {
-        res.send(`hello!! ${response} updated successfully`)
-
-    }).catch((error) => {
-        res.send('error :' + error)
-    })
-}
-
-//update hand phone
-const UpdatemobilePhone = (req, res) => {
-    let hp = req.params.mobilePhone
-    let newHp = req.body.mobilePhone
-    UserModel.findOneAndUpdate({ mobilePhone: hp }, { mobilePhone: newhp }).then((response) => {
+const UpdateUser = (req, res) => {
+    let user = req.params
+    let newUser = req.body
+    
+    UserModel.findOneAndUpdate(user,newUser).then((response) => {
         res.send(`hello!! ${response} updated successfully`)
 
     }).catch((error) => {
@@ -131,41 +85,6 @@ const UpdatemobilePhone = (req, res) => {
 }
 
 
-//update PositiveDate
-const UpdatePositiveDate= (req, res) => {
-    let getPD = req.params.getPositiveDate
-    let newgetPD = req.body.getPositiveDate
-    UserModel.findOneAndUpdate({ getPositiveDate: getPD }, { getPositiveDate: newgetPD }).then((response) => {
-        res.send(`hello!! ${response} updated successfully`)
-
-    }).catch((error) => {
-        res.send('error :' + error)
-    })
-}
-
-//update recovery date
-const UpdateRecoveryDate = (req, res) => {
-    let recoverydate = req.params.recovery
-    let newrecoverydate = req.body.recovery
-    UserModel.findOneAndUpdate({ recovery: recoverydate }, { recovery: newrecoverydate }).then((response) => {
-        res.send(`hello!! ${response} updated successfully`)
-
-    }).catch((error) => {
-        res.send('error :' + error)
-    })
-}
-
-//update vaccinationType
-const UpdatevaccinationType = (req, res) => {
-    let vactype = req.params.vaccinationType
-    let newvactype = req.body.vaccinationType
-    UserModel.findOneAndUpdate({ vaccinationType: vactype }, { vaccinationType: newvactype }).then((response) => {
-        res.send(`hello!! ${response} updated successfully`)
-
-    }).catch((error) => {
-        res.send('error :' + error)
-    })
-}
 
 
-module.exports={CreateUser,DeleteUser,getUser,UpdateName,UpdateID,UpdateAddress,UpdateBirthDate,UpdatePhone,UpdatemobilePhone,UpdatePositiveDate,UpdateRecoveryDate,UpdatevaccinationType,getUserByID}
+module.exports={CreateUser,DeleteUser,getUser,UpdateUser,getUserByID}

@@ -41,7 +41,7 @@ export default connect(mapStateToProps)(function Details(props) {
     }
         const [details, setdetails] = useState()
         useEffect(() => {
-            axios.get(`http://localhost:3030/User/getUserByID/${usr.ID}`).then((res) => {
+            axios.get(`http://localhost:3030/User/getUserByID/${usr.userId}`).then((res) => {
                 if (res.data) {
                     console.log(res.data)
                     setdetails(res.data)
@@ -69,7 +69,7 @@ export default connect(mapStateToProps)(function Details(props) {
                             טלפון נייד:{details.mobilePhone}
                     </Modal.Body>
 
-                    <Modal.Footer style={{ marginLeft: '5%', display: 'flex', flexWrap: 'nowrap' }}>
+                    {/* <Modal.Footer style={{ marginLeft: '5%', display: 'flex', flexWrap: 'nowrap' }}>
 
                         <Button variant="secondary" onClick={updateFunc}>
                             עדכון
@@ -77,7 +77,7 @@ export default connect(mapStateToProps)(function Details(props) {
                         <Button variant="primary" onClick={deleteUser}>
                             מחיקה
                         </Button>
-                    </Modal.Footer>
+                    </Modal.Footer> */}
                 </Modal>
             </div>
         </>
