@@ -73,15 +73,14 @@ const getUserByID = async function (req, res, next) {
 //update
 
 const UpdateUser = (req, res) => {
-        let newUser = req.body
-    try{
-
+    let newUser = req.body
     const user = UserModel.findOne({ userId: newUser.userId });
     const updated =  VaccinationModel.findByIdAndUpdate(newUser, user, { new: true });
     res.send(updated)
-}
-   catch(error) {
-    res.send(error);
+
+   .catch((error) => {
+        res.send('error :' + error)
+    })
 }
 
 
