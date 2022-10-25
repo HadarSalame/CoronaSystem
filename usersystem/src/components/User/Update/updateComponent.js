@@ -5,10 +5,12 @@ import "../Add/AddUserCSS.css"
 import index from '../../Index/indexComponent'
 import axios from "axios";
 import { useRef } from "react";
+import { addUser } from '../../../Redux/actions';
+import { connect } from "react-redux";
 
 
 
-export default function Update() {
+export default connect(function Update() {
 
     let navigate = useNavigate();
  
@@ -22,69 +24,28 @@ export default function Update() {
     let refmobilePhone = useRef();
     let refGetPositiveDate = useRef();
     let refRecovery = useRef();
-    let refVaccinationType = useRef();
-    let refvaccinationDateOne = useRef();
-    let refvaccinationDateTwo = useRef();
-    let refvaccinationDateThree = useRef();
-    let refvaccinationDateFour = useRef();
+ 
 
 
 
      function update(){
+let u={
+    name: refName.current.value,
+    ID: refID.current.value,
+    address: refAddress.current.value,
+    birthDate: refBirthDate.current.value,
+    Phone: refPhone.current.value,
+    mobilePhone: refmobilePhone.current.value,
+    getPositiveDate: refGetPositiveDate.current.value,
+    recovery: refRecovery.current.value,
 
-// //update name
-axios.get('http://localhost:3030/User/UpdateName',refName).then(res=>{
-    console.log(res.data)
 
-}).catch(err=>console.log(err))
-
-// //update ID
-axios.get('http://localhost:3030/User/UpdateID',refID).then(res=>{
-    console.log(res.data)
-
-}).catch(err=>console.log(err))
-
-// //update address
-axios.get('http://localhost:3030/User/UpdateAddress',refAddress).then(res=>{
-    console.log(res.data)
-
-}).catch(err=>console.log(err))
-
-// //update birthdate
-axios.get('http://localhost:3030/User/UpdateBirthDate',refBirthDate).then(res=>{
-    console.log(res.data)
-
-}).catch(err=>console.log(err))
-
- //update Phone
-axios.get('http://localhost:3030/User/UpdatePhone',refPhone).then(res=>{
-    console.log(res.data)
-
-}).catch(err=>console.log(err))
-
-//update mobilePhone
-axios.get('http://localhost:3030/User/UpdatemobilePhone',refmobilePhone).then(res=>{
-    console.log(res.data)
-
-}).catch(err=>console.log(err))
-
-//update mobilePhone
-axios.get('http://localhost:3030/User/UpdatemobilePhone',refmobilePhone).then(res=>{
-    console.log(res.data)
-
-}).catch(err=>console.log(err))
-
-//update getPositiveDate
-axios.get('http://localhost:3030/User/UpdatePositiveDate',refGetPositiveDate).then(res=>{
-    console.log(res.data)
-
-}).catch(err=>console.log(err))
-
-//update recovery
-axios.get('http://localhost:3030/User/UpdateRecoveryDate',refRecovery).then(res=>{
-    console.log(res.data)
-
-}).catch(err=>console.log(err))
+}
+        axios.post('http://localhost:3030/User/UpdateUser', u).then(res => {
+            alert(res.data)
+            console.log(res.data)
+            navigate("/Index")
+        }).catch(err => console.log(err))
 
 navigate('/index')
 
@@ -144,7 +105,7 @@ navigate('/index')
                             <Form.Control type="Date" ref={refRecovery} />
                         </Form.Group>
                     </Form>
-                    <Form>
+                    {/* <Form>
                         <Form.Label>סוג חיסון</Form.Label>
                         <Form.Select aria-label="סוג חיסון" ref={refVaccinationType}>
                             <option value="פייזר">פייזר</option>
@@ -160,11 +121,11 @@ navigate('/index')
                             <Form.Control type="Date" ref={refvaccinationDateThree} />
                             <Form.Control type="Date" ref={refvaccinationDateFour} />
                         </Form.Group>
-                    </Form>
+                    </Form> */}
                     <Button onClick={update}>עדכן</Button>
 
                 </div>
             </div>
         </>
     )
-}
+})

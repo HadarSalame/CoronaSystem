@@ -24,24 +24,24 @@ export default connect(mapStateToProps)(function Details(props) {
     const handleModalShow = () => setShow(true);
 
     // //update
-    let navigate = useNavigate();
-    function updateFunc(){
-        // handleModalClose
-        navigate('/Update')
-    }
+    // let navigate = useNavigate();
+    // function updateFunc(){
+    //     // handleModalClose
+    //     navigate('/Update')
+    // }
 
    // delete
-    function deleteUser() {
-        axios.delete(`http://localhost:3030/User/DeleteUser/${usr.ID}`).then((res) => {
-            if (res.data) {
-                alert('הלקוח נמחק בהצלחה')
-                // handleModalClose
-            }
-        })
-    }
+    // function deleteUser() {
+    //     axios.delete(`http://localhost:3030/User/DeleteUser/${props.userId}`).then((res) => {
+    //         if (res.data) {
+    //             alert('הלקוח נמחק בהצלחה')
+    //             // handleModalClose
+    //         }
+    //     })
+    // }
         const [details, setdetails] = useState()
         useEffect(() => {
-            axios.get(`http://localhost:3030/User/getUserByID/${usr.userId}`).then((res) => {
+            axios.get(`http://localhost:3030/User/getUserByID/${props._id}`).then((res) => {
                 if (res.data) {
                     console.log(res.data)
                     setdetails(res.data)
@@ -49,6 +49,8 @@ export default connect(mapStateToProps)(function Details(props) {
                 }
             })
         }, [])
+
+
     return (
         <>
             <div>
@@ -61,12 +63,13 @@ export default connect(mapStateToProps)(function Details(props) {
                         display: 'flex',
                         justifyContent: 'space-around'
                     }}>
+                        
                         שם:{details.name}
                             ת''ז:{details.ID}
                             כתובת:{details.address}
-                            תאריך לידה:{details.birthDate}
-                            טלפון:{details.Phone}
-                            טלפון נייד:{details.mobilePhone}
+                            תאריך לידה:{usr.birthDate}
+                            טלפון:{usr.Phone}
+                            טלפון נייד:{usr.mobilePhone}
                     </Modal.Body>
 
                     {/* <Modal.Footer style={{ marginLeft: '5%', display: 'flex', flexWrap: 'nowrap' }}>

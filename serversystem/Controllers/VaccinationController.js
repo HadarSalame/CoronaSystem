@@ -7,18 +7,19 @@ const AddVac = async (req, res) => {
     try {
 
         let newVac = await new VaccinationModel(vac)
-         newVac.save().then((()=>{
-            res.json({message:"Added successfully",newVac});
-            res.status(200).send(updated )
-        }))
-        const userid = newVac.userId;
-        // console.log(userid+"vecuserid");
-        const id = await UserModel.findOne({_id: vaccination });
-        // console.log(id + "id");
+        await newVac.save()
+        console.log(newVac+"....///.......")
+
+        const userid = newVac.userId;   
+        console.log(userid+"....///../////.....")
+        
+        const id = await UserModel.findOne({_id: userid });
+        console.log(id+"...........")
         id.vaccination.push(newVac);
         const updated = await UserModel.findByIdAndUpdate(userid,id,{ new: true });
-        console.log(update+"updatevac");
+        console.log(updated+"updatevac");
         res.send(updated)
+
         
 
 
@@ -28,5 +29,22 @@ const AddVac = async (req, res) => {
         res.send(e)
     }
 
+   
+
 }
-module.exports = { AddVac }
+
+//get vaccination by userid
+const GetVacById = async function (req, res, next) {
+    try {
+        const uId = req.params;
+        const vac = await orderModel.find({ _id: uId })
+
+        console.log(vac);
+        res.send(vac);
+    }
+    catch (error) {
+        next(error);
+    }
+}
+
+module.exports = { AddVac,GetVacById }

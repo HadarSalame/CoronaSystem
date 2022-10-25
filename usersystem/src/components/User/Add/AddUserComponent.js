@@ -24,15 +24,16 @@ export default connect()(function Add(props) {
     let refBirthDate = useRef();
     let refPhone = useRef();
     let refmobilePhone = useRef();
-    // let refGetPositiveDate = useRef(null);
-    // let refRecovery = useRef(null);
-
+    let refGetPositiveDate = useRef();
+    let refRecovery = useRef();
+  
 
 
 
     let navigate = useNavigate();
     // add user
     function goindex() {
+        
         let newUser = {
             name: refName.current.value,
             ID: refID.current.value,
@@ -40,8 +41,8 @@ export default connect()(function Add(props) {
             birthDate: refBirthDate.current.value,
             Phone: refPhone.current.value,
             mobilePhone: refmobilePhone.current.value,
-            // getPositiveDate: refGetPositiveDate.current.value,
-            // recovery: refRecovery.current.value,
+            getPositiveDate: refGetPositiveDate.current.value,
+            recovery: refRecovery.current.value,
 
 
 
@@ -49,19 +50,18 @@ export default connect()(function Add(props) {
         axios.post('http://localhost:3030/User/CreateUser', newUser).then(res => {
             console.log(res.data)
             dispatch(addUser(res.data.CreateUser));
-            navigate("/AddVac")
+            navigate("/Index")
         }).catch(err => console.log(err))
 
-
+       
     }
+   
+    
 
 
-    //hasCorona?
-    const [selectedValue, setselectedValue] = useState();
-    const handleChange = (event) => {
-        setselectedValue(event.target.value)
-        console.log(selectedValue);
-    };
+
+
+ 
 
 
 
@@ -108,54 +108,28 @@ export default connect()(function Add(props) {
                         </Form.Group>
                     </Form>
 
-                    <Form.Label>האם חלית בקורונה?</Form.Label>
-                    <div>
-                        <FormControl>
-                            <RadioGroup
-                                aria-labelledby="demo-radio-buttons-group-label"
-                                // defaultValue="false"
-                                name="radio-buttons-group"
-                            >
-                                <FormControlLabel
-                                    value="true"
-                                    control={<Radio />}
-                                    label="כן"
-                                    checked={selectedValue === 'true'}
-                                    onChange={handleChange}
-                                />
-                                <FormControlLabel
-                                    value="false"
-                                    control={<Radio />}
-                                    label="לא"
-                                    checked={selectedValue === 'false'}
-                                    onChange={handleChange}
-                                />
-                            </RadioGroup>
-                        </FormControl>
-
-
-
-                    </div>
-                    {selectedValue == 'true' ?
-                        <>
+                  
                             <Form>
-                                {/* <Form.Group className="mb-3" controlId="formBasicPositiveAnswer">
+                                <Form.Group className="mb-3" controlId="formBasicPositiveAnswer">
                                     <Form.Label>תאריך קבלת תוצאה חיובית</Form.Label>
                                     <Form.Control type="Date" ref={refGetPositiveDate} />
-                                </Form.Group> */}
+                                </Form.Group>
                             </Form>
                             <Form>
-                                {/* <Form.Group className="mb-3" controlId="formBasicfinallDate">
+                                <Form.Group className="mb-3" controlId="formBasicfinallDate">
                                     <Form.Label>תאריך סיום</Form.Label>
                                     <Form.Control type="Date" ref={refRecovery} />
-                                </Form.Group> */}
+                                </Form.Group>
                             </Form>
-                        </>
-                        : " "}
-                    <Button onClick={goindex}>המשך</Button>
+
+                            <Button onClick={goindex}>הרשם</Button>
+
+                    
+                     
+                    
                 </div>
             </div>
         </>
     )
-}
+    }
 )

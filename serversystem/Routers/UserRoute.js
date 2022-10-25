@@ -4,7 +4,7 @@ const UsersController=require('../Controllers/UserController')
 router.post('/CreateUser',UsersController.CreateUser);
 router.delete('/DeleteUser/:userId',UsersController.DeleteUser);
 router.get('/getUser',UsersController.getUser)
-router.get('/UpdateUser',UsersController.UpdateUser)
+router.post('/UpdateUser/:userId',UsersController.UpdateUser)
 router.get('/getUserByID/:userId',UsersController.getUserByID)
 
 
